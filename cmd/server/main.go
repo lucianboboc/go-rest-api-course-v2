@@ -28,7 +28,7 @@ func Run() error {
 
 	cmtService := comment.NewService(db)
 
-	httpHandler := transportHttp.NewService(cmtService)
+	httpHandler := transportHttp.NewHandler(cmtService)
 	if err := httpHandler.Serve(); err != nil {
 		return err
 	}
