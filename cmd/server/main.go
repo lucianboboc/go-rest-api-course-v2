@@ -1,11 +1,11 @@
 package main
 
 import (
-	"context"
 	"fmt"
 
 	"github.com/lucianboboc/go-rest-api-course/internal/comment"
 	"github.com/lucianboboc/go-rest-api-course/internal/db"
+	transportHttp "github.com/lucianboboc/go-rest-api-course/internal/transport/http"
 )
 
 // Run - is going to be responsible for
@@ -28,20 +28,10 @@ func Run() error {
 
 	cmtService := comment.NewService(db)
 
-	cmtService.Store.PostComment(
-		context.Background(),
-		comment.Comment{
-			ID:     "d5689f06-4d14-4944-9810-769e48832949",
-			Slug:   "manual-test",
-			Author: "Lucian",
-			Body:   "Hello World",
-		},
-	)
-
-	fmt.Println(cmtService.GetComment(
-		context.Background(),
-		"c5689f06-4d14-4944-9710-769e49932944",
-	))
+	httpHandler := transportHttp.NewService(cmtService)
+	if err := httpHandler.Serve(); err != nil {
+		return err
+	}
 
 	return nil
 }
