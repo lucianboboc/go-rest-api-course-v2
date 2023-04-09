@@ -34,7 +34,7 @@ func JWTAuth(
 }
 
 func validateToken(accessToken string) bool {
-	var mySigningKey = []byte("missingimpossible")
+	var mySigningKey = []byte("missionimpossible")
 	token, err := jwt.Parse(accessToken, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("could not validate auth token")

@@ -21,15 +21,15 @@ func createToken() string {
 }
 
 func TestPostComment(t *testing.T) {
-	// t.Run("can post comment", func(t *testing.T) {
-	// 	client := resty.New()
-	// 	resp, err := client.R().
-	// 		SetHeader("Authorization", "Bearer "+createToken()).
-	// 		SetBody(`{"slug":"/", "author": "Lucian", "body": "Hello World"}`).
-	// 		Post("http://localhost:8080/api/v1/comment")
-	// 	assert.NoError(t, err)
-	// 	assert.Equal(t, 200, resp.StatusCode())
-	// })
+	t.Run("can post comment", func(t *testing.T) {
+		client := resty.New()
+		resp, err := client.R().
+			SetHeader("Authorization", "Bearer "+createToken()).
+			SetBody(`{"slug":"/", "author": "Lucian", "body": "Hello World"}`).
+			Post("http://localhost:8080/api/v1/comment")
+		assert.NoError(t, err)
+		assert.Equal(t, 200, resp.StatusCode())
+	})
 
 	t.Run("cannot post comment without JWT", func(t *testing.T) {
 		client := resty.New()
